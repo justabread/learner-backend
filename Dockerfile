@@ -1,4 +1,4 @@
-FROM node:23-alpine
+FROM node:23-slim
 WORKDIR /app
 COPY learner-backend/package*.json ./
 RUN npm install

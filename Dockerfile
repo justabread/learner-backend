@@ -1,7 +1,7 @@
-FROM node:23-alpine
+FROM node:23-slim
 WORKDIR /app
-COPY package*.json ./
+COPY learner-backend/package*.json ./
 RUN npm install
-COPY . .
+COPY learner-backend/. .
 EXPOSE 3001
 CMD ["npm", "run", "dev"]

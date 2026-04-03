@@ -1,0 +1,7 @@
+# flyctl launch added from .gitignore
+dictionary.json
+dictionary.db
+node_modules
+dist
+**/.env*
+fly.toml

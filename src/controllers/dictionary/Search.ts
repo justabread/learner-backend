@@ -1,9 +1,9 @@
-import DictionaryBase from "./DictionaryBase";
+import DictionaryBase from './DictionaryBase.js'
 
 class Search extends DictionaryBase {
   run(): void {
-    this.response.json(this.dictionary.entries);
+    this.response.json(this.dictionary.getAll())
   }
 }
 
-export default Search;
+export default Search

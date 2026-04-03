@@ -1,2 +1,4 @@
 /dictionary.json
+/dictionary.db
 /node_modules
+.env*

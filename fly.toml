@@ -1,0 +1,15 @@
+[build]
+  dockerfile = "Dockerfile.fly"
+
+[http_service]
+  internal_port = 3001
+  force_https = true
+
+  [http_service.concurrency]
+    type = "requests"
+    hard_limit = 50
+    soft_limit = 25
+
+[[mounts]]
+  source = "dictionary_data"
+  destination = "/data"

@@ -1,6 +1,6 @@
 {
   "name": "learner-backend",
-  "version": "0.0.1",
+  "version": "0.1.0",
 "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",

@@ -1,4 +1,5 @@
 /dictionary.json
 /dictionary.db
 /node_modules
+/dist
 .env*

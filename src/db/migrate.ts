@@ -1,5 +1,5 @@
 import "dotenv/config";
-import Database from "./learner-database.js";
+import Database from "./LearnerDatabase.js";
 import { resolve } from "path";
 import { readdirSync, readFileSync } from "fs";
 

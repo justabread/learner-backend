@@ -1,5 +1,5 @@
 import type { Database } from "better-sqlite3";
-import LearnerDatabase from "../../db/learner-database";
+import LearnerDatabase from "../../db/LearnerDatabase";
 
 export interface DictionaryEntry {
   english: string;

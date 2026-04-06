@@ -1,10 +1,14 @@
 {
   "name": "learner-backend",
-  "version": "0.0.1",
-"scripts": {
+  "version": "0.1.1",
+  "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "database:migrate": "tsx src/db/migrate.ts",
+    "deploy": "fly deploy",
+    "prod-suspend": "fly scale count 0 -a learner-backend",
+    "prod-start": "fly scale count 1 -a learner-backend"
   },
   "keywords": [],
   "author": "",

@@ -1,11 +1,11 @@
-import DictionaryBase from './DictionaryBase.js'
+import DictionaryBase from "./DictionaryBase.js";
 
 class Delete extends DictionaryBase {
   run(): void {
-    const english = this.request.params.english as string
-    const deleted = this.dictionary.delete(english)
-    this.response.json({ deleted })
+    const english = this.request.params.english as string;
+    const deleted = this.dictionary.delete(english);
+    this.response.json({ deleted });
   }
 }
 
-export default Delete
+export default Delete;

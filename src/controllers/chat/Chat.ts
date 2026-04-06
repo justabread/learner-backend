@@ -2,6 +2,11 @@ import Controller from "../Controller.js";
 import LLMService from "../../services/llm/LLMService.js";
 
 class Chat extends Controller {
+  checkPermissions(): boolean {
+    this.loginRequired();
+    return true;
+  }
+
   run(): void {
     const messages: { role: "user" | "assistant"; content: string }[] =
       this.request.body;

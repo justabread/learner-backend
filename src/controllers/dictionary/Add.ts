@@ -9,7 +9,7 @@ class Add extends DictionaryBase {
       return;
     }
 
-    const added = this.dictionary.add(incoming);
+    const added = this.dictionary.add(this.getSession().user_id, incoming);
     this.response.json({ added });
   }
 }

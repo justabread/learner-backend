@@ -1,11 +1,6 @@
 import type { Database } from "better-sqlite3";
-import LearnerDatabase from "../../db/LearnerDatabase";
-
-export interface DictionaryEntry {
-  english: string;
-  swedish: string;
-  addedAt: string;
-}
+import LearnerDatabase from "../../db/LearnerDatabase.js";
+import DictionaryEntry from "../../models/DictionaryEntry.js";
 
 class Dictionary {
   private db: Database;
@@ -14,34 +9,46 @@ class Dictionary {
     this.db = LearnerDatabase.getInstance();
   }
 
-  getAll(): DictionaryEntry[] {
+  getAll(user_id: number): DictionaryEntry[] {
     return this.db
-      .prepare("SELECT * FROM dictionary ORDER BY addedAt DESC")
-      .all() as DictionaryEntry[];
+      .prepare(
+        "SELECT english, swedish, inserted FROM dictionary WHERE user_id = ? ORDER BY inserted DESC",
+      )
+      .all(user_id) as DictionaryEntry[];
   }
 
-  add(entries: { english: string; swedish: string }[]): DictionaryEntry[] {
+  add(
+    user_id: number,
+    entries: { english: string; swedish: string }[],
+  ): DictionaryEntry[] {
     const insert = this.db.prepare(
-      "INSERT OR IGNORE INTO dictionary (english, swedish, addedAt) VALUES (?, ?, ?)",
+      "INSERT OR IGNORE INTO dictionary (user_id, english, swedish) VALUES (?, ?, ?)",
     );
     const added: DictionaryEntry[] = [];
 
     for (const entry of entries) {
       if (!entry.english || !entry.swedish) continue;
-      const addedAt = new Date().toISOString();
-      const result = insert.run(entry.english, entry.swedish, addedAt);
+      const result = insert.run(user_id, entry.english, entry.swedish);
       if (result.changes > 0) {
-        added.push({ english: entry.english, swedish: entry.swedish, addedAt });
+        added.push(
+          new DictionaryEntry(
+            entry.english,
+            entry.swedish,
+            new Date().toISOString(),
+          ),
+        );
       }
     }
 
     return added;
   }
 
-  delete(english: string): number {
+  delete(user_id: number, english: string): number {
     const result = this.db
-      .prepare("DELETE FROM dictionary WHERE LOWER(english) = LOWER(?)")
-      .run(english);
+      .prepare(
+        "DELETE FROM dictionary WHERE user_id = ? AND LOWER(english) = LOWER(?)",
+      )
+      .run(user_id, english);
     return result.changes;
   }
 }
